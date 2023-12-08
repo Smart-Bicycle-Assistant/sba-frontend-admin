@@ -4,6 +4,7 @@ import { LoginPage, SigninPage, ReportPage, MainPage, UserPage } from './pages';
 import NavBar from './components/NavBar';
 import { useUserStore } from './stores/userStore';
 import { useToken } from './stores/tokenStore';
+import PrivateRouter from './components/PrivateRouter';
 import './App.css';
 
 const ROUTER = createBrowserRouter([
@@ -21,11 +22,11 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: '/user',
-    element: <UserPage />,
+    element: <PrivateRouter element={<UserPage />} />,
   },
   {
     path: '/report',
-    element: <ReportPage />,
+    element: <PrivateRouter element={<ReportPage />} />,
   },
 ]);
 

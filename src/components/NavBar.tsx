@@ -1,6 +1,10 @@
+import { useUserStore } from '../stores/userStore';
+
 import Logo from '../assets/Logo.svg?react';
 
 const NavBar: React.FC = () => {
+  const { isLoggedIn, setLoggedOut } = useUserStore();
+
   return (
     <div className="w-60 bg-white">
       <div className="flex items-center justify-center gap-x-2 py-5">
@@ -25,18 +29,31 @@ const NavBar: React.FC = () => {
             </div>
           </a>
         </div>
-        <div>
-          <a href="/auth/login">
-            <div className="py-3 px-6">
-              <p>로그인</p>
+        {isLoggedIn ? (
+          <div>
+            <div
+              className="py-3 px-6"
+              onClick={() => {
+                setLoggedOut();
+              }}
+            >
+              <p>로그아웃</p>
             </div>
-          </a>
-          <a href="/auth/signin">
-            <div className="py-3 px-6">
-              <p>회원가입</p>
-            </div>
-          </a>
-        </div>
+          </div>
+        ) : (
+          <div>
+            <a href="/auth/login">
+              <div className="py-3 px-6">
+                <p>로그인</p>
+              </div>
+            </a>
+            <a href="/auth/signin">
+              <div className="py-3 px-6">
+                <p>회원가입</p>
+              </div>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
