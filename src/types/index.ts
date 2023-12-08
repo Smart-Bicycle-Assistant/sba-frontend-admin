@@ -7,3 +7,20 @@ export type RegisterType = LoginType & {
   nickname: string;
   email: string;
 };
+
+export type ReportType = {
+  id: number;
+  reporter: string;
+  target: string;
+  time: number;
+  content: string;
+};
+
+export type UserType = {
+  id: number;
+  password: string;
+  nickname: string;
+  email: number;
+  bicycleNumber: string;
+  banned: number;
+};
