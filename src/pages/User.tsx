@@ -21,16 +21,22 @@ const User: React.FC = () => {
 
   const banMessage = (banned: number) => {
     if (banned === -1) {
-      return <p>정상</p>;
+      return <button className="bg-emerald-100 text-emerald-500 px-1 py-0.5 rounded">정상</button>;
     } else {
-      return <p>일시 정지</p>;
+      if (new Date(banned) < new Date()) {
+        return (
+          <button className="bg-emerald-100 text-emerald-500 px-1 py-0.5 rounded">정상</button>
+        );
+      }
+
+      return <button className="bg-red-100 text-red-500 px-1 py-0.5 rounded">일시 정지</button>;
     }
   };
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <NavBar />
-      <div className="w-full h-screen p-8">
+      <div className="w-full h-full p-8">
         <div className="p-8 bg-white rounded-xl">
           <div className="text-xl font-semibold pb-6">회원 관리</div>
           <div className="flex items-center bg-primary-100 text-sm text-center py-3 mb-1">

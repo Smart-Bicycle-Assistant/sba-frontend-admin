@@ -51,7 +51,7 @@ const Report: React.FC = () => {
   return (
     <div className="flex">
       <NavBar />
-      <div className="w-full h-screen p-8">
+      <div className="w-full h-full p-8">
         <div className="p-8 bg-white rounded-xl">
           <div className="text-xl font-semibold">신고 관리</div>
           <div className="flex flex-col gap-y-6 py-6">
