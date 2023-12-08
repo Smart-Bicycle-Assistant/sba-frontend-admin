@@ -1,12 +1,17 @@
 import useInput from '../hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { LoginApi } from '../apis/user';
+import { useToken } from '../stores/tokenStore';
+import { useUserStore } from '../stores/userStore';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
 
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
   const { value: password, onChange: onPasswordChange, setValue: setPassword } = useInput();
+
+  const { setLoggedIn } = useUserStore();
+  const { setToken } = useToken();
 
   const onSubmit = async () => {
     if (id === '' || password === '') {
@@ -16,9 +21,11 @@ const Login: React.FC = () => {
     try {
       const res = await LoginApi({ id, password });
       if (res.message === 'OK') {
-        console.log(res);
+        setToken(res.data.token);
+        localStorage.setItem('token', res.data.token);
+        setLoggedIn();
+        navigate('/');
       }
-      navigate('/');
     } catch (error) {
       console.error('Error during login:', error);
     } finally {
