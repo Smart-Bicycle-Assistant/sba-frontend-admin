@@ -1,9 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUserStore } from '../stores/userStore';
 
 import Logo from '../assets/Logo.svg?react';
 
 const NavBar: React.FC = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
   const { isLoggedIn, setLoggedOut } = useUserStore();
@@ -17,17 +18,30 @@ const NavBar: React.FC = () => {
       <div className="text-sm">
         <div>
           <Link to="/">
-            <div className="py-3 px-6 bg-primary-100 border-r-4 border-primary-default">
+            <div
+              className={`py-3 px-6 ${
+                location.pathname === '/' && `bg-primary-100 border-r-4 border-primary-default`
+              }`}
+            >
               <p>Home</p>
             </div>
           </Link>
           <Link to="/user">
-            <div className="py-3 px-6">
+            <div
+              className={`py-3 px-6 ${
+                location.pathname === '/user' && `bg-primary-100 border-r-4 border-primary-default`
+              }`}
+            >
               <p>회원 관리</p>
             </div>
           </Link>
           <Link to="/report">
-            <div className="py-3 px-6">
+            <div
+              className={`py-3 px-6 ${
+                location.pathname === '/report' &&
+                `bg-primary-100 border-r-4 border-primary-default`
+              }`}
+            >
               <p>신고 관리</p>
             </div>
           </Link>
@@ -48,12 +62,22 @@ const NavBar: React.FC = () => {
         ) : (
           <div>
             <Link to="/auth/login">
-              <div className="py-3 px-6">
+              <div
+                className={`py-3 px-6 ${
+                  location.pathname === '/auth/login' &&
+                  `bg-primary-100 border-r-4 border-primary-default`
+                }`}
+              >
                 <p>로그인</p>
               </div>
             </Link>
             <Link to="/auth/signin">
-              <div className="py-3 px-6">
+              <div
+                className={`py-3 px-6 ${
+                  location.pathname === '/auth/signin' &&
+                  `bg-primary-100 border-r-4 border-primary-default`
+                }`}
+              >
                 <p>회원가입</p>
               </div>
             </Link>
