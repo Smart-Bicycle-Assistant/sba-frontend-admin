@@ -74,8 +74,8 @@ const Signin: React.FC = () => {
   };
 
   return (
-    <div className="bg-white m-8 rounded-xl">
-      <div className="py-[10vh]">
+    <div className="h-screen p-8">
+      <div className="bg-white px-8 py-[10vh] rounded-xl">
         <div className="flex items-center justify-center">
           <div className="flex flex-col">
             <div>

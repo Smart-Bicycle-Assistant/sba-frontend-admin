@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
       <div className="text-sm">
         <div>
           <a href="/">
-            <div className="py-3 px-6 bg-slate-100 border-r-4 border-primary-default">
+            <div className="py-3 px-6 bg-primary-100 border-r-4 border-primary-default">
               <p>Home</p>
             </div>
           </a>

@@ -27,25 +27,27 @@ const User: React.FC = () => {
   };
 
   return (
-    <div className="m-8 p-8 bg-white rounded-xl">
-      <div className="text-xl font-semibold">회원 관리</div>
-      <div className="flex items-center">
-        <p>아이디</p>
-        <p>닉네임</p>
-        <p>이메일</p>
-        <p>자전거 대수</p>
-        <p>정지 여부</p>
+    <div className="h-screen p-8">
+      <div className="p-8 bg-white rounded-xl">
+        <div className="text-xl font-semibold pb-6">회원 관리</div>
+        <div className="flex items-center bg-primary-100 text-sm text-center py-3 mb-1">
+          <p className="w-[20%]">아이디</p>
+          <p className="w-[20%]">닉네임</p>
+          <p className="w-[40%]">이메일</p>
+          <p className="w-[10%]">자전거</p>
+          <p className="w-[10%]">정지 여부</p>
+        </div>
+        {userList &&
+          userList.map((user) => (
+            <div className="flex items-center text-sm text-center py-3">
+              <p className="w-[20%]">{user.id}</p>
+              <p className="w-[20%]">{user.nickname}</p>
+              <p className="w-[40%]">{user.email}</p>
+              <p className="w-[10%]">{user.bicycleNumber}대</p>
+              <p className="w-[10%]">{banMessage(user.banned)}</p>
+            </div>
+          ))}
       </div>
-      {userList &&
-        userList.map((user) => (
-          <div className="flex items-center">
-            <p>{user.id}</p>
-            <p>{user.nickname}</p>
-            <p>{user.email}</p>
-            <p>{user.bicycleNumber}</p>
-            <p>{banMessage(user.banned)}</p>
-          </div>
-        ))}
     </div>
   );
 };
