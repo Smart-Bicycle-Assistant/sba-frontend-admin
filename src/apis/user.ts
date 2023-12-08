@@ -28,3 +28,12 @@ export const RegisterApi = async (params: RegisterType) => {
     return handleApiError(error);
   }
 };
+
+export const ValidIdApi = async (id: string) => {
+  try {
+    const response = await member_request.get(`/manager/id_available/${id}`);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

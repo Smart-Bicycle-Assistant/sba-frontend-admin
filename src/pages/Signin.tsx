@@ -2,7 +2,7 @@ import { SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import useValidate from '../components/ValidationMessage';
-import { RegisterApi } from '../apis/user';
+import { RegisterApi, ValidIdApi } from '../apis/user';
 
 const Signin: React.FC = () => {
   const navigate = useNavigate();
@@ -94,9 +94,9 @@ const Signin: React.FC = () => {
                       : 'bg-gray-200 text-gray-500'
                   }`}
                   onClick={async () => {
-                    // const result = await ValidIdApi(id);
-                    // console.log(result);
-                    // result.message == 'OK' ? setValidationId(true) : setValidationId(false);
+                    const result = await ValidIdApi(id);
+                    console.log(result);
+                    result.message == 'OK' ? setValidationId(true) : setValidationId(false);
                   }}
                 >
                   {validationId == true ? '확인완료' : '중복확인'}
@@ -216,6 +216,7 @@ const Signin: React.FC = () => {
               )}
               onClick={() => {
                 onSubmit();
+                navigate('auth/login');
               }}
             >
               회원가입
