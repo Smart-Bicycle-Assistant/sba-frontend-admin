@@ -1,3 +1,4 @@
+import NavBar from '../components/NavBar';
 import useInput from '../hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { LoginApi } from '../apis/user';
@@ -41,33 +42,36 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="h-screen p-8">
-      <div className="bg-white px-8 py-[10vh] rounded-xl">
-        <div className="flex items-center justify-center">
-          <div className="flex flex-col">
-            <input
-              placeholder="아이디"
-              className="w-96 px-3 py-3 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={id}
-              onChange={onIdChange}
-              onKeyDown={handleEnterKey}
-            />
+    <div className="flex">
+      <NavBar />
+      <div className="w-full h-screen p-8">
+        <div className="bg-white px-8 py-[10vh] rounded-xl">
+          <div className="flex items-center justify-center">
+            <div className="flex flex-col">
+              <input
+                placeholder="아이디"
+                className="w-96 px-3 py-3 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={id}
+                onChange={onIdChange}
+                onKeyDown={handleEnterKey}
+              />
 
-            <input
-              placeholder="비밀번호"
-              className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              type="password"
-              value={password}
-              onChange={onPasswordChange}
-              onKeyDown={handleEnterKey}
-              autoComplete="current-password"
-            />
-            <button
-              className="bg-primary-default font-medium text-sm text-white py-2.5 px-4 mt-10 rounded-lg hover:bg-opacity-80"
-              onClick={onSubmit}
-            >
-              로그인
-            </button>
+              <input
+                placeholder="비밀번호"
+                className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type="password"
+                value={password}
+                onChange={onPasswordChange}
+                onKeyDown={handleEnterKey}
+                autoComplete="current-password"
+              />
+              <button
+                className="bg-primary-default font-medium text-sm text-white py-2.5 px-4 mt-10 rounded-lg hover:bg-opacity-80"
+                onClick={onSubmit}
+              >
+                로그인
+              </button>
+            </div>
           </div>
         </div>
       </div>

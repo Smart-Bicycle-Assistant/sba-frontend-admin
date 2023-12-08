@@ -1,8 +1,11 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useUserStore } from '../stores/userStore';
 
 import Logo from '../assets/Logo.svg?react';
 
 const NavBar: React.FC = () => {
+  const navigate = useNavigate();
+
   const { isLoggedIn, setLoggedOut } = useUserStore();
 
   return (
@@ -13,28 +16,30 @@ const NavBar: React.FC = () => {
       </div>
       <div className="text-sm">
         <div>
-          <a href="/">
+          <Link to="/">
             <div className="py-3 px-6 bg-primary-100 border-r-4 border-primary-default">
               <p>Home</p>
             </div>
-          </a>
-          <a href="/user">
+          </Link>
+          <Link to="/user">
             <div className="py-3 px-6">
               <p>회원 관리</p>
             </div>
-          </a>
-          <a href="/report">
+          </Link>
+          <Link to="/report">
             <div className="py-3 px-6">
               <p>신고 관리</p>
             </div>
-          </a>
+          </Link>
         </div>
         {isLoggedIn ? (
           <div>
             <div
               className="py-3 px-6"
               onClick={() => {
+                localStorage.clear();
                 setLoggedOut();
+                navigate('/auth/login');
               }}
             >
               <p>로그아웃</p>
@@ -42,16 +47,16 @@ const NavBar: React.FC = () => {
           </div>
         ) : (
           <div>
-            <a href="/auth/login">
+            <Link to="/auth/login">
               <div className="py-3 px-6">
                 <p>로그인</p>
               </div>
-            </a>
-            <a href="/auth/signin">
+            </Link>
+            <Link to="/auth/signin">
               <div className="py-3 px-6">
                 <p>회원가입</p>
               </div>
-            </a>
+            </Link>
           </div>
         )}
       </div>
