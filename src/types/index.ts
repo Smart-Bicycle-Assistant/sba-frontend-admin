@@ -16,6 +16,11 @@ export type ReportType = {
   content: string;
 };
 
+export type SuspiciousType = {
+  target: string;
+  content: string[];
+};
+
 export type UserType = {
   id: number;
   password: string;

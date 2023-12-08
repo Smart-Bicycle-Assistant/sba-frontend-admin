@@ -1,13 +1,14 @@
 import NavBar from '../components/NavBar';
 import { useState, useEffect } from 'react';
 import { BanUserApi, ReportListAllApi, ReportListSuspiciousApi } from '../apis/report';
-import { ReportType } from '../types';
+import { ReportType, SuspiciousType } from '../types';
 import ConfirmModal from '../components/ConfirmModal';
 import ReportComponent from '../components/ReportComponent';
+import { formatReport } from '../utils/format';
 
 const Report: React.FC = () => {
   const [reportList, setReportList] = useState<ReportType[]>([]);
-  const [suspiciousList, setSuspiciousList] = useState<ReportType[]>([]);
+  const [suspiciousList, setSuspiciousList] = useState<SuspiciousType[]>([]);
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
   const [banUser, setBanUser] = useState<string>('');
 
@@ -25,7 +26,8 @@ const Report: React.FC = () => {
     console.log(res);
 
     if (res.status === 200) {
-      setSuspiciousList(res.data);
+      console.log(formatReport(res.data));
+      setSuspiciousList(formatReport(res.data));
     }
   };
 
@@ -62,7 +64,29 @@ const Report: React.FC = () => {
             {suspiciousList &&
               suspiciousList.map((report, idx) => (
                 <div key={idx}>
-                  <ReportComponent report={report} confirmModalHandler={confirmModalHandler} />
+                  <div className="p-4 border-l-4 border-l-primary-default bg-slate-50 text-xs">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-base pr-4">{report.target}</span>
+                        </p>
+                      </div>
+                      <button
+                        className="rounded-xl bg-rose-500 text-white px-3 py-1"
+                        onClick={() => confirmModalHandler(report.target)}
+                      >
+                        신고 처리하기
+                      </button>
+                    </div>
+                    <div className="flex flex-col gap-y-1">
+                      {report.content &&
+                        report.content.map((el) => (
+                          <p className="bg-white border border-slate-100 p-4 rounded-lg leading-normal">
+                            {el}
+                          </p>
+                        ))}
+                    </div>
+                  </div>
                 </div>
               ))}
           </div>
