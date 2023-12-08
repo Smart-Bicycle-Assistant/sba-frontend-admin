@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import { ReportListAllApi } from '../apis/report';
-
-type ReportType = {
-  id: number;
-  reporter: string;
-  target: string;
-  time: number;
-  content: string;
-};
+import { BanUserApi, ReportListAllApi, ReportListSuspiciousApi } from '../apis/report';
+import { ReportType } from '../types';
+import ConfirmModal from '../components/ConfirmModal';
+import ReportComponent from '../components/ReportComponent';
 
 const Report: React.FC = () => {
   const [reportList, setReportList] = useState<ReportType[]>([]);
+  const [suspiciousList, setSuspiciousList] = useState<ReportType[]>([]);
+  const [confirmModal, setConfirmModal] = useState<boolean>(false);
+  const [banUser, setBanUser] = useState<string>('');
 
   const getReportListAll = async () => {
     const res = await ReportListAllApi();
@@ -21,34 +19,69 @@ const Report: React.FC = () => {
     }
   };
 
+  const getReportListSuspicious = async () => {
+    const res = await ReportListSuspiciousApi();
+    console.log(res);
+
+    if (res.status === 200) {
+      setSuspiciousList(res.data);
+    }
+  };
+
+  const processBanUser = async () => {
+    const res = await BanUserApi(banUser);
+    console.log(res);
+
+    if (res.status === 200) {
+      setConfirmModal(false);
+    }
+  };
+
+  const confirmModalHandler = (id: string) => {
+    setConfirmModal(true);
+    setBanUser(id);
+  };
+
   useEffect(() => {
     getReportListAll();
+    getReportListSuspicious();
   }, []);
 
   return (
     <div className="m-8 p-8 bg-white rounded-xl">
       <div className="text-xl font-semibold">신고 관리</div>
       <div className="flex flex-col gap-y-6 py-6">
-        {reportList &&
-          reportList.map((report, idx) => (
-            <div key={idx} className="p-4 border-l-4 border-l-primary-default bg-slate-50 text-xs">
-              <div className="flex items-center mb-4">
-                <p>
-                  <span className="text-base pr-4">{report.target}</span>
-                </p>
-                <p>
-                  <span className="rounded-l-xl border-y border-l border-primary-default bg-primary-default text-primary-default text-white text-[10px] px-2 py-1">
-                    신고자
-                  </span>
-                  <span className="rounded-r-xl border-y border-r border-primary-default text-primary-default text-slate-800 text-[10px] px-2 py-1">
-                    {report.reporter}
-                  </span>
-                </p>
-              </div>
-              <p className="bg-white border border-slate-100 p-4 rounded-lg">{report.content}</p>
+        <div>
+          <p className="text-base font-semibold pb-1">악성 신고 보기</p>
+          <p className="text-xs text-slate-400">신고를 3개 이상 받은 유저가 표시됩니다.</p>
+        </div>
+        {suspiciousList &&
+          suspiciousList.map((report, idx) => (
+            <div key={idx}>
+              <ReportComponent report={report} confirmModalHandler={confirmModalHandler} />
             </div>
           ))}
       </div>
+      <div className="flex flex-col gap-y-6 py-6">
+        <p className="text-base font-semibold">전체 신고 보기</p>
+        {reportList &&
+          reportList.map((report, idx) => (
+            <div key={idx}>
+              <ReportComponent report={report} confirmModalHandler={confirmModalHandler} />
+            </div>
+          ))}
+      </div>
+      {confirmModal && (
+        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-lg">
+          <div className="flex flex-col gap-y-3 animate-fade-in-down">
+            <ConfirmModal
+              setOpenModal={setConfirmModal}
+              deleteHandler={processBanUser}
+              user={banUser}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

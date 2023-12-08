@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="flex">
       <NavBar />
-      <div className="w-full h-screen bg-slate-100">
+      <div className="w-full h-full bg-slate-100">
         <RouterProvider router={ROUTER} />
       </div>
     </div>
