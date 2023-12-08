@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { LoginPage, SigninPage, ReportPage, MainPage } from './pages';
+import { LoginPage, SigninPage, ReportPage, MainPage, UserPage } from './pages';
 import NavBar from './components/NavBar';
 import './App.css';
 
@@ -15,6 +15,10 @@ const ROUTER = createBrowserRouter([
   {
     path: '/auth/signin',
     element: <SigninPage />,
+  },
+  {
+    path: '/user',
+    element: <UserPage />,
   },
   {
     path: '/report',

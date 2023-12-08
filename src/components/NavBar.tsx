@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
               <p>Home</p>
             </div>
           </a>
-          <a href="/">
+          <a href="/user">
             <div className="py-3 px-6">
               <p>회원 관리</p>
             </div>
