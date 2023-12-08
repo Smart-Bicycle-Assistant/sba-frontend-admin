@@ -23,13 +23,23 @@ const User: React.FC = () => {
     if (banned === -1) {
       return <button className="bg-emerald-100 text-emerald-500 px-1 py-0.5 rounded">정상</button>;
     } else {
-      if (new Date(banned) < new Date()) {
+      const date = new Date(banned);
+
+      if (date < new Date()) {
         return (
           <button className="bg-emerald-100 text-emerald-500 px-1 py-0.5 rounded">정상</button>
         );
       }
 
-      return <button className="bg-red-100 text-red-500 px-1 py-0.5 rounded">일시 정지</button>;
+      return (
+        <div>
+          <button className="bg-red-100 text-red-500 px-1 py-0.5 rounded">일시 정지</button>
+          <p className="pt-1 text-[8px] text-slate-400 leading-tight">
+            (~{date.getMonth() + 1}월 {date.getDate()}일 {date.getHours()}시간 {date.getMinutes()}분{' '}
+            {date.getSeconds()}초)
+          </p>
+        </div>
+      );
     }
   };
 
