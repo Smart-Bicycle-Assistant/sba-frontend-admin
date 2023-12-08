@@ -4,7 +4,7 @@ import { BanUserApi, ReportListAllApi, ReportListSuspiciousApi } from '../apis/r
 import { ReportType, SuspiciousType } from '../types';
 import ConfirmModal from '../components/ConfirmModal';
 import ReportComponent from '../components/ReportComponent';
-import { formatReport } from '../utils/format';
+import { formatReport, formatDate } from '../utils/format';
 
 const Report: React.FC = () => {
   const [reportList, setReportList] = useState<ReportType[]>([]);
@@ -81,9 +81,10 @@ const Report: React.FC = () => {
                     <div className="flex flex-col gap-y-1">
                       {report.content &&
                         report.content.map((el) => (
-                          <p className="bg-white border border-slate-100 p-4 rounded-lg leading-normal">
-                            {el}
-                          </p>
+                          <div className="flex justify-between bg-white border border-slate-100 p-4 rounded-lg leading-normal">
+                            <p>{el[0]}</p>
+                            <p className="flex items-end text-slate-400">{formatDate(el[1])}</p>
+                          </div>
                         ))}
                     </div>
                   </div>

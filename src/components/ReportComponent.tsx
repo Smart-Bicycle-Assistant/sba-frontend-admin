@@ -1,4 +1,5 @@
 import { ReportType } from '../types';
+import { formatDate } from '../utils/format';
 
 type ReportComponentProps = {
   report: ReportType;
@@ -29,9 +30,10 @@ const ReportComponent: React.FC<ReportComponentProps> = ({ report, confirmModalH
           신고 처리하기
         </button>
       </div>
-      <p className="bg-white border border-slate-100 p-4 rounded-lg leading-normal">
-        {report.content}
-      </p>
+      <div className="flex justify-between bg-white border border-slate-100 p-4 rounded-lg leading-normal">
+        <p>{report.content}</p>
+        <p className="flex items-end text-slate-400">{formatDate(report.time)}</p>
+      </div>
     </div>
   );
 };

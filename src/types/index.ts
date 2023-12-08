@@ -18,7 +18,7 @@ export type ReportType = {
 
 export type SuspiciousType = {
   target: string;
-  content: string[];
+  content: [string, number][];
 };
 
 export type UserType = {
