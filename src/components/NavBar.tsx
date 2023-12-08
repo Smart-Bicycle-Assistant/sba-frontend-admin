@@ -3,7 +3,7 @@ import Logo from '../assets/Logo.svg?react';
 const NavBar: React.FC = () => {
   return (
     <div className="w-60 bg-white">
-      <div className="flex items-center justify-center gap-x-1 py-5">
+      <div className="flex items-center justify-center gap-x-2 py-5">
         <Logo className="w-6 h-6" />
         <div className="text-2xl font-bold text-primary-default">S-BA</div>
       </div>

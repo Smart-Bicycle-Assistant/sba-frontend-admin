@@ -1,8 +1,12 @@
 import { SetStateAction, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import useValidate from '../components/ValidationMessage';
+import { RegisterApi } from '../apis/user';
 
 const Signin: React.FC = () => {
+  const navigate = useNavigate();
+
   const { value: id, onChange: onIdChange } = useInput();
   const { value: password, onChange: onPasswordChange } = useInput();
   const { value: check, onChange: onCheckChange } = useInput();
@@ -56,18 +60,17 @@ const Signin: React.FC = () => {
   };
 
   const onSubmit = async () => {
-    // const res = await RegisterApi({
-    //   id,
-    //   nickname,
-    //   password,
-    //   email: `${emailId}@${emailAddress}`,
-    // });
-    // console.log(res);
-    // if (res.status === 200) {
-    //   console.log("회원가입 성공");
-    //   navigate("/register/success", { state: id });
-    // }
-    // console.log(res);
+    const res = await RegisterApi({
+      id,
+      nickname,
+      password,
+      email: `${emailId}@${emailAddress}`,
+    });
+
+    if (res.status === 200) {
+      console.log('회원가입 성공');
+      navigate('/auth/signin');
+    }
   };
 
   return (
@@ -113,10 +116,11 @@ const Signin: React.FC = () => {
             </div>
             <div>
               <input
+                value={password}
                 placeholder="비밀번호"
-                className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="password"
-                autoComplete="current-password"
+                onChange={onPasswordChange}
+                className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <p
                 className={`text-[10px] mt-1 pl-1 ${
@@ -132,10 +136,11 @@ const Signin: React.FC = () => {
             </div>
             <div>
               <input
+                value={check}
                 placeholder="비밀번호 확인"
-                className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="password"
-                autoComplete="current-password"
+                onChange={onCheckChange}
+                className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <p
                 className={`text-[10px] mb-2 pl-2 ${
@@ -152,10 +157,11 @@ const Signin: React.FC = () => {
 
             <div>
               <input
-                placeholder="이름"
+                value={nickname}
+                placeholder="닉네임"
+                type="text"
+                onChange={onNameChange}
                 className="w-96 px-3 py-3 mt-4 text-xs bg-slate-50 border border-slate-300 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                type="password"
-                autoComplete="current-password"
               />
             </div>
 
@@ -210,7 +216,6 @@ const Signin: React.FC = () => {
               )}
               onClick={() => {
                 onSubmit();
-                // navigate('/register/success');
               }}
             >
               회원가입

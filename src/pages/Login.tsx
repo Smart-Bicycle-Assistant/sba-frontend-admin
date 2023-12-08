@@ -1,5 +1,6 @@
 import useInput from '../hooks/useInput';
 import { useNavigate } from 'react-router-dom';
+import { LoginApi } from '../apis/user';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -13,11 +14,11 @@ const Login: React.FC = () => {
     }
 
     try {
-      //   const res = await LoginApi({ id, password });
-      //   if (res.message === "OK") {
-      //     console.log(res);
-      //   }
-      navigate('/home');
+      const res = await LoginApi({ id, password });
+      if (res.message === 'OK') {
+        console.log(res);
+      }
+      navigate('/');
     } catch (error) {
       console.error('Error during login:', error);
     } finally {
