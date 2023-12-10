@@ -36,3 +36,12 @@ export const BanUserApi = async (id: string) => {
     return handleApiError(error);
   }
 };
+
+export const ReportStatusUpdateApi = async (id: number) => {
+  try {
+    const response = await request.patch(`/report/set_solved?status=1&reportId=${id}`);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

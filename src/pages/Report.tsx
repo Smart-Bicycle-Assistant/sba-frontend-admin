@@ -1,6 +1,11 @@
 import NavBar from '../components/NavBar';
 import { useState, useEffect } from 'react';
-import { BanUserApi, ReportListAllApi, ReportListSuspiciousApi } from '../apis/report';
+import {
+  BanUserApi,
+  ReportListAllApi,
+  ReportListSuspiciousApi,
+  ReportStatusUpdateApi,
+} from '../apis/report';
 import { ReportType, SuspiciousType } from '../types';
 import ConfirmModal from '../components/ConfirmModal';
 import ReportComponent from '../components/ReportComponent';
@@ -11,6 +16,7 @@ const Report: React.FC = () => {
   const [suspiciousList, setSuspiciousList] = useState<SuspiciousType[]>([]);
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
   const [banUser, setBanUser] = useState<string>('');
+  const [reportId, setReportId] = useState<number[]>([]);
 
   const getReportListAll = async () => {
     const res = await ReportListAllApi();
@@ -33,18 +39,22 @@ const Report: React.FC = () => {
 
   const processBanUser = async () => {
     const res = await BanUserApi(banUser);
-    console.log(res);
 
     if (res.status === 200) {
+      reportId.map(async (id: number) => {
+        await ReportStatusUpdateApi(id);
+      });
+
       getReportListAll();
       getReportListSuspicious();
       setConfirmModal(false);
     }
   };
 
-  const confirmModalHandler = (id: string) => {
+  const confirmModalHandler = (id: string, report: number[]) => {
     setConfirmModal(true);
     setBanUser(id);
+    setReportId(report);
   };
 
   useEffect(() => {
@@ -75,7 +85,7 @@ const Report: React.FC = () => {
                       </div>
                       <button
                         className="rounded-xl bg-rose-500 text-white px-3 py-1"
-                        onClick={() => confirmModalHandler(report.target)}
+                        onClick={() => confirmModalHandler(report.target, report.reportId)}
                       >
                         신고 처리하기
                       </button>
