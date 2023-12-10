@@ -74,34 +74,40 @@ const Report: React.FC = () => {
               <p className="text-xs text-slate-400">신고를 3개 이상 받은 유저가 표시됩니다.</p>
             </div>
             {suspiciousList &&
-              suspiciousList.map((report, idx) => (
-                <div key={idx}>
-                  <div className="p-4 border-l-4 border-l-primary-default bg-slate-50 text-xs">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center">
-                        <p>
-                          <span className="text-base pr-4">{report.target}</span>
-                        </p>
-                      </div>
-                      <button
-                        className="rounded-xl bg-rose-500 text-white px-3 py-1"
-                        onClick={() => confirmModalHandler(report.target, report.reportId)}
-                      >
-                        신고 처리하기
-                      </button>
-                    </div>
-                    <div className="flex flex-col gap-y-1">
-                      {report.content &&
-                        report.content.map((el) => (
-                          <div className="flex justify-between bg-white border border-slate-100 p-4 rounded-lg leading-normal">
-                            <p>{el[0]}</p>
-                            <p className="flex items-end text-slate-400">{formatDate(el[1])}</p>
+              suspiciousList.map(
+                (report, idx) =>
+                  report.content.length > 2 && (
+                    <div key={idx}>
+                      <div className="p-4 border-l-4 border-l-primary-default bg-slate-50 text-xs">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center">
+                            <p>
+                              <span className="text-base pr-4">{report.target}</span>
+                            </p>
                           </div>
-                        ))}
+                          <button
+                            className="rounded-xl bg-rose-500 text-white px-3 py-1"
+                            onClick={() => confirmModalHandler(report.target, report.reportId)}
+                          >
+                            신고 처리하기
+                          </button>
+                        </div>
+                        <div className="flex flex-col gap-y-1">
+                          {report.content &&
+                            report.content.map((el, elIdx) => (
+                              <div
+                                key={elIdx}
+                                className="flex justify-between bg-white border border-slate-100 p-4 rounded-lg leading-normal"
+                              >
+                                <p>{el[0]}</p>
+                                <p className="flex items-end text-slate-400">{formatDate(el[1])}</p>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  )
+              )}
           </div>
           <div className="flex flex-col gap-y-6 py-6">
             <p className="text-base font-semibold">전체 신고 보기</p>
