@@ -23,12 +23,16 @@ const ReportComponent: React.FC<ReportComponentProps> = ({ report, confirmModalH
             </span>
           </p>
         </div>
-        <button
-          className="rounded-xl bg-rose-500 text-white px-3 py-1"
-          onClick={() => confirmModalHandler(report.target)}
-        >
-          신고 처리하기
-        </button>
+        {report.solved === 0 ? (
+          <button
+            className="rounded-xl bg-rose-500 text-white px-3 py-1"
+            onClick={() => confirmModalHandler(report.target)}
+          >
+            신고 처리하기
+          </button>
+        ) : (
+          <button className="rounded-xl bg-slate-500 text-white px-3 py-1">신고 처리완료</button>
+        )}
       </div>
       <div className="flex justify-between bg-white border border-slate-100 p-4 rounded-lg leading-normal">
         <p>{report.content}</p>

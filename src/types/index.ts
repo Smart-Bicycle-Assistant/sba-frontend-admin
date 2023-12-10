@@ -14,6 +14,7 @@ export type ReportType = {
   target: string;
   time: number;
   content: string;
+  solved: number;
 };
 
 export type SuspiciousType = {

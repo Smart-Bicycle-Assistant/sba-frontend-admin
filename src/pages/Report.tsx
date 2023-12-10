@@ -36,6 +36,8 @@ const Report: React.FC = () => {
     console.log(res);
 
     if (res.status === 200) {
+      getReportListAll();
+      getReportListSuspicious();
       setConfirmModal(false);
     }
   };
